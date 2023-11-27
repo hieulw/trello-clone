@@ -1,3 +1,5 @@
+@import '@mantine/core/styles.css';
+
 @layer tailwind {
   /* https://github.com/orgs/mantinedev/discussions/1672#discussioncomment-6428444 */
   @tailwind base;
