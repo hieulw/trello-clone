@@ -1,8 +1,8 @@
-import { Card, Box, Group, Tooltip, Badge, Avatar, Image, Text } from "@mantine/core";
+import { Avatar, Badge, Box, Card, Group, Image, Text, Tooltip } from "@mantine/core";
 import {
+  IconAlignJustified,
   IconClock,
   IconEye,
-  IconAlignJustified,
   IconMessageCircle,
   IconPaperclip,
 } from "@tabler/icons-react";
@@ -25,22 +25,34 @@ function ListCard() {
             </Badge>
           </Tooltip>
           <Tooltip label="You are watching this card">
-            <IconEye size={16} />
+            <Badge p={0} color="dark" variant="transparent" leftSection={<IconEye size={16} />}>
+              1
+            </Badge>
           </Tooltip>
           <Tooltip label="This card has a description">
             <IconAlignJustified size={16} />
           </Tooltip>
           <Tooltip label="Comments">
-            <Badge color="dark" variant="transparent" leftSection={<IconMessageCircle size={16} />}>
+            <Badge
+              p={0}
+              color="dark"
+              variant="transparent"
+              leftSection={<IconMessageCircle size={16} />}
+            >
               2
             </Badge>
           </Tooltip>
           <Tooltip label="Attachments">
-            <Badge color="dark" variant="transparent" leftSection={<IconPaperclip size={16} />}>
+            <Badge
+              p={0}
+              color="dark"
+              variant="transparent"
+              leftSection={<IconPaperclip size={16} />}
+            >
               1
             </Badge>
           </Tooltip>
-          <Avatar.Group>
+          <Avatar.Group className="justify-end grow">
             <Avatar />
             <Avatar />
             <Avatar />
