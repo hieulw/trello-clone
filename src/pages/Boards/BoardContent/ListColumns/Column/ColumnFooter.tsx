@@ -1,5 +1,5 @@
 import theme from "@/theme";
-import { Box, Button, Tooltip, ActionIcon, Flex } from "@mantine/core";
+import { Button, Tooltip, ActionIcon, Flex } from "@mantine/core";
 import { IconPlus, IconTemplate } from "@tabler/icons-react";
 
 function ColumnFooter() {

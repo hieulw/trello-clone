@@ -1,4 +1,6 @@
-import { Avatar, Badge, Box, Card, Group, Image, Text, Tooltip } from "@mantine/core";
+import { CardType, MemberType } from "@/types/board";
+import { localeDate } from "@/utils/formatting";
+import { Avatar, Badge, Card, Flex, Group, Image, Text, Tooltip } from "@mantine/core";
 import {
   IconAlignJustified,
   IconClock,
@@ -7,59 +9,75 @@ import {
   IconPaperclip,
 } from "@tabler/icons-react";
 
-function ListCard() {
+function ListCard({ card, members }: { card: CardType; members: MemberType[] }) {
   return (
-    <Box className="cursor-pointer">
-      <Card className="my-1 rounded-lg shadow">
-        <Card.Section>
-          <Image
-            src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-            alt="Norway"
-          />
-        </Card.Section>
-        <Text className="mt-1">Norway Fjord Adventures</Text>
-        <Group className="justify-between mt-2">
-          <Tooltip label="This card is complete">
-            <Badge variant="filled" color="green" leftSection={<IconClock size={16} />}>
-              Dec 1, 2023
-            </Badge>
-          </Tooltip>
-          <Tooltip label="You are watching this card">
-            <Badge p={0} color="dark" variant="transparent" leftSection={<IconEye size={16} />}>
-              1
-            </Badge>
-          </Tooltip>
-          <Tooltip label="This card has a description">
-            <IconAlignJustified size={16} />
-          </Tooltip>
-          <Tooltip label="Comments">
-            <Badge
-              p={0}
-              color="dark"
-              variant="transparent"
-              leftSection={<IconMessageCircle size={16} />}
-            >
-              2
-            </Badge>
-          </Tooltip>
-          <Tooltip label="Attachments">
-            <Badge
-              p={0}
-              color="dark"
-              variant="transparent"
-              leftSection={<IconPaperclip size={16} />}
-            >
-              1
-            </Badge>
-          </Tooltip>
-          <Avatar.Group className="justify-end grow">
-            <Avatar />
-            <Avatar />
-            <Avatar />
-          </Avatar.Group>
+    <Flex className="flex-col">
+      <Card className="my-1 rounded-lg shadow cursor-pointer">
+        {card.cover.idAttachment && (
+          <Card.Section>
+            <Image
+              src={`https://picsum.photos/seed/${card.cover.idAttachment}/300/169`}
+              alt={card.name}
+            />
+          </Card.Section>
+        )}
+        <Text className="mt-1">{card.name}</Text>
+        <Group className="mt-2">
+          {card.badges.due && (
+            <Tooltip label="This card is complete">
+              <Badge
+                variant="filled"
+                color={card.badges.dueComplete ? "green" : "red"}
+                leftSection={<IconClock size={16} />}
+              >
+                {localeDate(card.badges.due)}
+              </Badge>
+            </Tooltip>
+          )}
+          {card.badges.subscribed && (
+            <Tooltip label="You are watching this card">
+              <Badge p={0} color="dark" variant="transparent" leftSection={<IconEye size={16} />} />
+            </Tooltip>
+          )}
+          {card.badges.description && (
+            <Tooltip label="This card has a description">
+              <IconAlignJustified size={16} />
+            </Tooltip>
+          )}
+          {card.badges.comments && (
+            <Tooltip label="Comments">
+              <Badge
+                p={0}
+                color="dark"
+                variant="transparent"
+                leftSection={<IconMessageCircle size={16} />}
+                children={card.badges.comments}
+              />
+            </Tooltip>
+          )}
+          {card.badges.attachments && (
+            <Tooltip label="Attachments">
+              <Badge
+                p={0}
+                color="dark"
+                variant="transparent"
+                leftSection={<IconPaperclip size={16} />}
+                children={card.badges.attachments}
+              />
+            </Tooltip>
+          )}
+          {members?.length > 0 && (
+            <Avatar.Group className="justify-end grow">
+              {members?.map((member) => (
+                <Tooltip key={member.id} label={`${member.fullName} (${member.username})`}>
+                  <Avatar size="sm" src={member.avatarUrl ? `${member.avatarUrl}/30.png` : null} />
+                </Tooltip>
+              ))}
+            </Avatar.Group>
+          )}
         </Group>
       </Card>
-    </Box>
+    </Flex>
   );
 }
 

@@ -5,7 +5,7 @@ const BOARD_BAR_HEIGHT = rem(48);
 const BOARD_CONTENT_HEIGHT = `calc(100vh - ${APP_BAR_HEIGHT} - ${BOARD_BAR_HEIGHT})`;
 const COLUMN_HEADER_HEIGHT = rem(40);
 const COLUMN_FOOTER_HEIGHT = rem(38);
-const BOX_SPACING = rem(50);
+const BOX_SPACING = rem(40);
 const COLUMN_CONTENT_HEIGHT = `calc(${BOARD_CONTENT_HEIGHT} - ${COLUMN_HEADER_HEIGHT} - ${COLUMN_FOOTER_HEIGHT} - ${BOX_SPACING})`;
 
 const themeOverride = createTheme({

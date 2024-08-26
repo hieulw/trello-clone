@@ -1,8 +1,15 @@
 import theme from "@/theme";
-import { ActionIcon, Avatar, Button, Flex, Group } from "@mantine/core";
+import { MemberType } from "@/types/board";
+import { ActionIcon, Avatar, Button, Flex, Group, Tooltip } from "@mantine/core";
 import { IconCalendar, IconFilter, IconSettingsAutomation, IconStar } from "@tabler/icons-react";
 
-function BoardBar() {
+function BoardBar({
+  members,
+  boardName,
+}: {
+  members: MemberType[];
+  boardName: string;
+}) {
   return (
     <Flex
       style={{
@@ -11,7 +18,7 @@ function BoardBar() {
       className="overflow-x-auto justify-between items-center px-3 w-full bg-transparent border-b"
     >
       <Group className="flex-nowrap">
-        <h1>Board Name</h1>
+        <h1>{boardName}</h1>
         <ActionIcon variant="subtle">
           <IconStar size={16} />
         </ActionIcon>
@@ -27,9 +34,15 @@ function BoardBar() {
           Filters
         </Button>
         <Avatar.Group>
-          <Avatar />
-          <Avatar />
-          <Avatar />
+          {members.map((member) => (
+            <Tooltip key={member.id} label={`${member.fullName} (${member.username})`}>
+              <Avatar
+                size="sm"
+                src={member.avatarUrl ? `${member.avatarUrl}/30.png` : null}
+                children={member.avatarUrl ? null : member.initials}
+              />
+            </Tooltip>
+          ))}
         </Avatar.Group>
       </Group>
     </Flex>

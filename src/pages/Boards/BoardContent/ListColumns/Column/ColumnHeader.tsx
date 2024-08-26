@@ -1,16 +1,17 @@
 import theme from "@/theme";
-import { Box, Menu, ActionIcon, Text, Flex } from "@mantine/core";
+import { ActionIcon, Flex, Menu } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
+import { ColumnType } from "@/types/board";
 
-function ColumnHeader() {
+function ColumnHeader({ column }: { column: ColumnType }) {
   return (
     <Flex
       style={{
         height: theme.other.columnHeaderHeight,
       }}
-      className="justify-between items-center px-2 w-full"
+      className="justify-between items-center px-2 basis-0"
     >
-      <Text className="font-bold">List Header</Text>
+      <h2 className="flex flex-wrap flex-grow flex-shrink font-semibold">{column.name}</h2>
       <Menu>
         <Menu.Target>
           <ActionIcon variant="subtle">
